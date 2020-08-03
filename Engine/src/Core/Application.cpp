@@ -13,5 +13,17 @@ namespace Engine {
 	{
 		Application::s_Instance = nullptr;
 	}
+	
+	void Application::Run()
+	{
+		while (m_Running) {
+			// do stuff
+		}
+
+		#ifdef GE_DEBUG
+			// Wait for user input before closing the console window.
+			std::cin.get();
+		#endif
+	}
 }
 

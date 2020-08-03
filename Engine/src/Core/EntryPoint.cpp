@@ -7,8 +7,7 @@ int main()
 {
 	Application* application = CreateApplication();
 
-	std::cout << "Application started!" << std::endl;
-	std::cout << "Application name: " << application->GetName() << std::endl;
+	application->Run();
 
-	std::cin.get();
+	delete application;
 }

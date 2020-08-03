@@ -9,6 +9,8 @@ namespace Engine {
 
 		virtual ~Application();
 
+		void Run();
+
 		inline static Application* GetInstance() { return s_Instance; };
 		inline const std::string GetName() const { return m_Name; };
 
@@ -16,6 +18,7 @@ namespace Engine {
 		static Application* s_Instance;
 
 		std::string m_Name;
+		bool m_Running = true;
 	};
 
 	Application* CreateApplication();
