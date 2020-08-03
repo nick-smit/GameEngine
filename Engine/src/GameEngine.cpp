@@ -6,7 +6,7 @@ class MyApplication : public Engine::Application
 {
 public: 
 	MyApplication(std::string name) : Engine::Application(name) {
-		std::cout << "From MyApplication: " << this->GetName() << std::endl;
+		LOG_INFO("Application name: {0}", name)
 	};
 	
 	~MyApplication() = default;

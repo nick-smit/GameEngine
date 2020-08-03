@@ -16,6 +16,9 @@ workspace "GameEngine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir = {};
+IncludeDir["spdlog"] = "Engine/vendor/spdlog/include";
+
 group "Dependencies"
 
 group ""
@@ -41,6 +44,7 @@ project "Engine"
 
 	includedirs {
 		"%{prj.name}/src",
+		"%{IncludeDir.spdlog}",
 	}
 
 	filter "system:windows"

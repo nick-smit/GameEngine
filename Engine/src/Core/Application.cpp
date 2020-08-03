@@ -5,7 +5,11 @@ namespace Engine {
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application(std::string name)
-		: m_Name(name) {
+		: m_Name(name) 
+	{
+		Logger::Init();
+		LOG_CORE_INFO("Initializing engine v0.0.1")
+
 		s_Instance = this;
 	}
 
