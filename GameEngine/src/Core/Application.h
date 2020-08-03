@@ -17,4 +17,6 @@ namespace Engine {
 
 		std::string m_Name;
 	};
+
+	Application* CreateApplication();
 }

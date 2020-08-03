@@ -5,12 +5,7 @@
 
 #include "Core\Application.h"
 
-int main()
+Engine::Application* Engine::CreateApplication()
 {
-	Engine::Application application("Game Engine!");
-
-	std::cout << application.GetName() << std::endl;
-	std::cout << Engine::Application::GetInstance()->GetName() << std::endl;
-
-	std::cin.get();
+	return new Application("Game engine!");
 }
