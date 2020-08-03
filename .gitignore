@@ -9,7 +9,6 @@
 
 # Precompiled Headers
 *.gch
-*.pch
 
 # Compiled Dynamic libraries
 *.so
@@ -30,3 +29,11 @@
 *.exe
 *.out
 *.app
+
+.vs/
+Debug/
+
+# visual studio files
+*.sln
+*.vcxproj
+*.vcxproj.filters
