@@ -1,6 +1,5 @@
+#include "pch.h"
 #include "Application.h"
-
-#include <iostream>
 
 namespace Engine {
 	Application* Application::s_Instance = nullptr;

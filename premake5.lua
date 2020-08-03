@@ -1,17 +1,65 @@
 workspace "GameEngine"
-   configurations { "Debug", "Release" }
+	architecture "x64"
+	startproject "Sandbox"
+
+	configurations
+	{
+		"Debug",
+		"Release",
+		"Dist"
+	}
+
+	flags
+	{
+		"MultiProcessorCompile"
+	}
+
+outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
+group "Dependencies"
+
+group ""
 
 project "Engine"
-   kind "ConsoleApp"
-   language "C++"
-   targetdir "bin/%{cfg.buildcfg}"
+	location "Engine"
+	--kind "StaticLib"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
-   files { "**.h", "**.cpp" }
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-   filter "configurations:Debug"
-      defines { "DEBUG" }
-      symbols "On"
+	pchheader "pch.h"
+	pchsource "Engine/src/pch.cpp"
 
-   filter "configurations:Release"
-      defines { "NDEBUG" }
-      optimize "On"
+	files {
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp",
+	}
+
+	includedirs {
+		"%{prj.name}/src",
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+		defines {
+			"GLFW_INCLUDE_NONE"
+		}
+
+	filter "configurations:Debug"
+		defines "GE_DEBUG"
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		defines "GE_RELEASE"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		defines "GE_DIST"
+		runtime "Release"
+		optimize "on"

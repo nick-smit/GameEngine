@@ -31,7 +31,8 @@
 *.app
 
 .vs/
-Debug/
+bin/
+bin-int/
 
 # visual studio files
 *.sln
