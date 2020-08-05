@@ -18,8 +18,13 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {};
 IncludeDir["spdlog"] = "Engine/vendor/spdlog/include";
+IncludeDir["glfw"] = "Engine/vendor/glfw/include";
+IncludeDir["glad"] = "Engine/vendor/glad/include";
+
 
 group "Dependencies"
+	include "Dependencies/glfw"
+	include "Dependencies/glad"
 
 group ""
 
@@ -45,6 +50,14 @@ project "Engine"
 	includedirs {
 		"%{prj.name}/src",
 		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.glfw}",	
+		"%{IncludeDir.glad}",
+	}
+
+	links {
+		"GLFW",
+		"GLAD",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
