@@ -2,6 +2,8 @@
 #include "WindowsWindow.h"
 
 namespace Engine {
+	static int windowCount = 0;
+
 	static void GLFWErrorCallback(int error, const char* description)
 	{
 		LOG_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
@@ -35,14 +37,16 @@ namespace Engine {
 
 		LOG_CORE_INFO("Creating window {0}, width: {1}, height: {2}", m_Data.Name, m_Data.Width, m_Data.Height)
 
-		auto success = glfwInit();
-		GE_CORE_ASSERT(success, "Failed to initialize GLFW");
+		if (windowCount == 0) {
+			auto success = glfwInit();
+			GE_CORE_ASSERT(success, "Failed to initialize GLFW");
 
-		if (!success) {
-			return false;
+			if (!success) {
+				return false;
+			}
+
+			glfwSetErrorCallback(GLFWErrorCallback);
 		}
-
-		glfwSetErrorCallback(GLFWErrorCallback);
 
 		/* Create a windowed mode window and its OpenGL context */
 		m_GLFWwindow = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Name.c_str(), NULL, NULL);
@@ -52,6 +56,8 @@ namespace Engine {
 			glfwTerminate();
 			return false;
 		}
+
+		++windowCount;
 
 		// TODO: Move to GraphicsContext
 		/* Make the window's context current */
@@ -63,6 +69,10 @@ namespace Engine {
 	void WindowsWindow::Shutdown()
 	{
 		glfwDestroyWindow(m_GLFWwindow);
-		glfwTerminate();
+		--windowCount;
+
+		if (windowCount == 0) {
+			glfwTerminate();
+		}
 	}
 }
