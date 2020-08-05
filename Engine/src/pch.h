@@ -6,5 +6,6 @@
 #include <iostream>
 
 #include "Core/Log.h"
+#include "Core/Memory.h"
 
 #include "Macro/Assert.h"

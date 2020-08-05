@@ -1,6 +1,7 @@
 #pragma once
 
 #include "pch.h"
+#include "Factory\Window.h"
 
 namespace Engine {
 	class Application {
@@ -19,6 +20,8 @@ namespace Engine {
 
 		std::string m_Name;
 		bool m_Running = true;
+
+		Scope<Window> m_Window;
 	};
 
 	Application* CreateApplication();
