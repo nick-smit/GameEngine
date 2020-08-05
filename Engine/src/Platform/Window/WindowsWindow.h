@@ -20,7 +20,7 @@ namespace Engine {
 
 		struct WindowData {
 			std::string Name;
-			uint32_t Width, Height;
+			uint32_t Width = 0, Height = 0;
 		};
 	
 		WindowData m_Data;
