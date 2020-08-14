@@ -69,6 +69,28 @@ namespace Engine {
 			data.EventCallback(event);
 		});
 
+		glfwSetWindowSizeCallback(m_GLFWwindow, [](GLFWwindow* window, int width, int height) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			GE_ASSERT(&data, "Data object was not set correctly");
+
+			WindowResizeEvent event((uint32_t) width, (uint32_t) height);
+			data.EventCallback(event);
+		});
+
+		glfwSetWindowFocusCallback(m_GLFWwindow, [](GLFWwindow* window, int inFocus) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			GE_ASSERT(&data, "Data object was not set correctly");
+
+			if (inFocus == GLFW_TRUE) {
+				WindowFocusEvent event;
+				data.EventCallback(event);
+			}
+			else {
+				WindowBlurEvent event;
+				data.EventCallback(event);
+			}
+		});
+
 		// TODO: Move to GraphicsContext
 		/* Make the window's context current */
 		glfwMakeContextCurrent(m_GLFWwindow);

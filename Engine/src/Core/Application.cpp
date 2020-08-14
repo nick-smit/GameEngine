@@ -26,6 +26,8 @@ namespace Engine {
 	{
 		while (m_Running) {
 			m_Window->OnUpdate();
+
+			if (m_Minimized) continue;
 		}
 	}
 	
@@ -33,6 +35,9 @@ namespace Engine {
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize));
+		dispatcher.Dispatch<WindowBlurEvent>(BIND_EVENT_FN(Application::OnWindowBlur));
+		dispatcher.Dispatch<WindowFocusEvent>(BIND_EVENT_FN(Application::OnWindowFocus));
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
@@ -40,6 +45,26 @@ namespace Engine {
 		m_Running = false;
 
 		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		// Todo something
+		return false;
+	}
+
+	bool Application::OnWindowBlur(WindowBlurEvent& e)
+	{
+		m_Minimized = true;
+
+		return false;
+	}
+
+	bool Application::OnWindowFocus(WindowFocusEvent& e)
+	{
+		m_Minimized = false;
+
+		return false;
 	}
 }
 

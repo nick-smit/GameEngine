@@ -17,6 +17,9 @@ namespace Engine {
 		void OnEvent(Event& e);
 
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
+		bool OnWindowBlur(WindowBlurEvent& e);
+		bool OnWindowFocus(WindowFocusEvent& e);
 
 		inline static Application* GetInstance() { return s_Instance; };
 		inline const std::string GetName() const { return m_Name; };
@@ -26,6 +29,7 @@ namespace Engine {
 
 		std::string m_Name;
 		bool m_Running = true;
+		bool m_Minimized = true;
 
 		Scope<Window> m_Window;
 	};
