@@ -18,8 +18,9 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {};
 IncludeDir["spdlog"] = "Engine/vendor/spdlog/include";
-IncludeDir["glfw"] = "Engine/vendor/glfw/include";
-IncludeDir["glad"] = "Engine/vendor/glad/include";
+IncludeDir["glfw"]   = "Engine/vendor/glfw/include";
+IncludeDir["glad"]   = "Engine/vendor/glad/include";
+IncludeDir["glm"]   = "Engine/vendor/glm";
 
 
 group "Dependencies"
@@ -45,13 +46,16 @@ project "Engine"
 	files {
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl",
 	}
 
 	includedirs {
 		"%{prj.name}/src",
 		"%{IncludeDir.spdlog}",
-		"%{IncludeDir.glfw}",	
+		"%{IncludeDir.glfw}",
 		"%{IncludeDir.glad}",
+		"%{IncludeDir.glm}",
 	}
 
 	links {
