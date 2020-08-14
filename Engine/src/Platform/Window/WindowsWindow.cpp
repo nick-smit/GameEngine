@@ -59,6 +59,9 @@ namespace Engine {
 		}
 
 		++windowCount;
+
+		SetVSync(props.VSync);
+
 		glfwSetWindowUserPointer(m_GLFWwindow, &m_Data);
 
 		glfwSetWindowCloseCallback(m_GLFWwindow, [](GLFWwindow* window) {
@@ -105,6 +108,17 @@ namespace Engine {
 
 		if (windowCount == 0) {
 			glfwTerminate();
+		}
+	}
+
+	void WindowsWindow::SetVSync(bool enabled)
+	{
+		m_Data.VSync = enabled;
+		if (enabled) {
+			glfwSwapInterval(1);
+		}
+		else {
+			glfwSwapInterval(0);
 		}
 	}
 

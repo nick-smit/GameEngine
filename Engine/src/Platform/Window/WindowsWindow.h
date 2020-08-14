@@ -13,6 +13,8 @@ namespace Engine {
 			std::string Name;
 			uint32_t Width = 0, Height = 0;
 
+			bool VSync = true;
+
 			std::function<void(Event&)> EventCallback;
 		};
 
@@ -23,8 +25,11 @@ namespace Engine {
 		virtual void OnUpdate() override;
 
 		void SetEventCallback(const std::function<void(Event&)>& callback) override { m_Data.EventCallback = callback; };
+		virtual void SetVSync(bool enabled) override;
 
 		virtual const Math::Vec2 GetCursorPos() const override;
+
+		inline bool VSyncEnabled() const override { return m_Data.VSync; };
 
 	private: 
 		bool Init(const WindowProps& props);
