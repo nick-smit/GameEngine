@@ -2,6 +2,8 @@
 
 #include "pch.h"
 #include "Factory\Window.h"
+#include "Event\Event.h"
+#include "Event\ApplicationEvent.h"
 
 namespace Engine {
 	class Application {
@@ -11,6 +13,10 @@ namespace Engine {
 		virtual ~Application();
 
 		void Run();
+
+		void OnEvent(Event& e);
+
+		bool OnWindowClose(WindowCloseEvent& e);
 
 		inline static Application* GetInstance() { return s_Instance; };
 		inline const std::string GetName() const { return m_Name; };

@@ -1,6 +1,8 @@
 #pragma once
 #include "pch.h"
 
+#include "Event\Event.h"
+
 namespace Engine {
 	struct WindowProps {
 		uint32_t Width;
@@ -25,6 +27,8 @@ namespace Engine {
 		virtual ~Window() = default;
 
 		virtual void OnUpdate() = 0;
+
+		virtual void SetEventCallback(const std::function<void(Event&)>&) = 0;
 	};
 
 	class WindowFactory {

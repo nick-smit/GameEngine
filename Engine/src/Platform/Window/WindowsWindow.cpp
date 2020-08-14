@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "Event\ApplicationEvent.h"
 #include "WindowsWindow.h"
 
 namespace Engine {
@@ -58,6 +59,15 @@ namespace Engine {
 		}
 
 		++windowCount;
+		glfwSetWindowUserPointer(m_GLFWwindow, &m_Data);
+
+		glfwSetWindowCloseCallback(m_GLFWwindow, [](GLFWwindow* window) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			GE_ASSERT(&data, "Data object was not set correctly");
+
+			WindowCloseEvent event;
+			data.EventCallback(event);
+		});
 
 		// TODO: Move to GraphicsContext
 		/* Make the window's context current */

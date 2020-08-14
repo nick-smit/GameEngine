@@ -14,6 +14,7 @@ namespace Engine {
 		
 		WindowProps windowProps;
 		m_Window = WindowFactory::Create(windowProps);
+		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 	}
 
 	Application::~Application()
@@ -26,11 +27,19 @@ namespace Engine {
 		while (m_Running) {
 			m_Window->OnUpdate();
 		}
+	}
+	
+	void Application::OnEvent(Event& e)
+	{
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
+	}
 
-		#ifdef GE_DEBUG
-			// Wait for user input before closing the console window.
-			std::cin.get();
-		#endif
+	bool Application::OnWindowClose(WindowCloseEvent& e)
+	{
+		m_Running = false;
+
+		return true;
 	}
 }
 
