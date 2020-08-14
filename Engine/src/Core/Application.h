@@ -29,7 +29,7 @@ namespace Engine {
 
 		std::string m_Name;
 		bool m_Running = true;
-		bool m_Minimized = true;
+		bool m_Minimized = false;
 
 		Scope<Window> m_Window;
 	};
