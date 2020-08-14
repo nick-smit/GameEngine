@@ -60,8 +60,6 @@ namespace Engine {
 
 		++windowCount;
 
-		SetVSync(props.VSync);
-
 		glfwSetWindowUserPointer(m_GLFWwindow, &m_Data);
 
 		glfwSetWindowCloseCallback(m_GLFWwindow, [](GLFWwindow* window) {
@@ -97,6 +95,8 @@ namespace Engine {
 		// TODO: Move to GraphicsContext
 		/* Make the window's context current */
 		glfwMakeContextCurrent(m_GLFWwindow);
+
+		SetVSync(props.VSync);
 
 		return true;
 	}
