@@ -127,6 +127,14 @@ namespace Engine {
 		double x, y;
 		glfwGetCursorPos(m_GLFWwindow, &x, &y);
 
+		int maxX, maxY;
+		glfwGetWindowSize(m_GLFWwindow, &maxX, &maxY);
+
+		if (x < 0 || x > maxX || y < 0 || y > maxY) {
+			// Out of bounds
+			return { -1, -1 };
+		}
+
 		return { x, y };
 	}
 }
