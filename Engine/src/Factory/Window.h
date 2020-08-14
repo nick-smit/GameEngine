@@ -29,6 +29,8 @@ namespace Engine {
 		virtual void OnUpdate() = 0;
 
 		virtual void SetEventCallback(const std::function<void(Event&)>&) = 0;
+
+		virtual const Math::Vec2 GetCursorPos() const = 0;
 	};
 
 	class WindowFactory {

@@ -107,4 +107,12 @@ namespace Engine {
 			glfwTerminate();
 		}
 	}
+
+	const Math::Vec2 WindowsWindow::GetCursorPos() const
+	{
+		double x, y;
+		glfwGetCursorPos(m_GLFWwindow, &x, &y);
+
+		return { x, y };
+	}
 }

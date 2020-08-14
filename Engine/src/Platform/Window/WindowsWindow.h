@@ -23,6 +23,9 @@ namespace Engine {
 		virtual void OnUpdate() override;
 
 		void SetEventCallback(const std::function<void(Event&)>& callback) override { m_Data.EventCallback = callback; };
+
+		virtual const Math::Vec2 GetCursorPos() const override;
+
 	private: 
 		bool Init(const WindowProps& props);
 		void Shutdown();

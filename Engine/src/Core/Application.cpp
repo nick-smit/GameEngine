@@ -28,6 +28,9 @@ namespace Engine {
 			m_Window->OnUpdate();
 
 			if (m_Minimized) continue;
+
+			auto pos = m_Window->GetCursorPos();
+			LOG_CORE_DEBUG("Cursor pos: {0}, {1}", pos.x, pos.y)
 		}
 	}
 	
