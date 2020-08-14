@@ -1,5 +1,7 @@
 #pragma once
-#include "pch.h"
+
+#include <string>
+#include "Macro/Bit.h"
 
 namespace Engine {
 	enum class EventType

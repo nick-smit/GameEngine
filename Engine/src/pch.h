@@ -6,9 +6,12 @@
 #include <iostream>
 #include <functional>
 #include <utility>
+#include <algorithm>
 
 #include "Core/Log.h"
 #include "Core/Memory.h"
+
+#include "Event/Event.h"
 
 #include "Math/Vector.h"
 

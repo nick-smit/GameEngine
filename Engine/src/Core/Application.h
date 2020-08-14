@@ -1,9 +1,11 @@
 #pragma once
 
-#include "pch.h"
+#include <string>
 #include "Factory\Window.h"
 #include "Event\Event.h"
 #include "Event\ApplicationEvent.h"
+#include "Core\LayerStack.h"
+#include "Core\Memory.h"
 
 namespace Engine {
 	class Application {
@@ -22,6 +24,7 @@ namespace Engine {
 		bool OnWindowFocus(WindowFocusEvent& e);
 
 		inline static Application* GetInstance() { return s_Instance; };
+		inline LayerStack* GetLayerStack() const { return m_LayerStack; };
 		inline const std::string GetName() const { return m_Name; };
 
 	private:
@@ -32,6 +35,7 @@ namespace Engine {
 		bool m_Minimized = false;
 
 		Scope<Window> m_Window;
+		LayerStack* m_LayerStack;
 	};
 
 	Application* CreateApplication();

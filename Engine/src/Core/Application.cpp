@@ -15,10 +15,14 @@ namespace Engine {
 		WindowProps windowProps;
 		m_Window = WindowFactory::Create(windowProps);
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+
+		m_LayerStack = new LayerStack();
 	}
 
 	Application::~Application()
 	{
+		delete m_LayerStack;
+
 		Application::s_Instance = nullptr;
 	}
 	
@@ -29,8 +33,9 @@ namespace Engine {
 
 			if (m_Minimized) continue;
 
-			auto pos = m_Window->GetCursorPos();
-			LOG_CORE_DEBUG("Cursor pos: {0}, {1}", pos.x, pos.y)
+			for (Layer* layer : *m_LayerStack) {
+				layer->OnUpdate();
+			}
 		}
 	}
 	
