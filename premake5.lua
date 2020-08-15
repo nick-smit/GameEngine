@@ -16,11 +16,12 @@ workspace "GameEngine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+
 IncludeDir = {};
 IncludeDir["spdlog"] = "Engine/vendor/spdlog/include";
 IncludeDir["glfw"]   = "Engine/vendor/glfw/include";
 IncludeDir["glad"]   = "Engine/vendor/glad/include";
-IncludeDir["glm"]   = "Engine/vendor/glm";
+IncludeDir["glm"]    = "Engine/vendor/glm";
 
 
 group "Dependencies"
@@ -31,8 +32,7 @@ group ""
 
 project "Engine"
 	location "Engine"
-	--kind "StaticLib"
-	kind "ConsoleApp"
+	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
 	staticruntime "on"
@@ -42,6 +42,10 @@ project "Engine"
 
 	pchheader "pch.h"
 	pchsource "Engine/src/pch.cpp"
+
+	defines {
+		"_CRT_SECURE_NO_WARNINGS"
+	}
 
 	files {
 		"%{prj.name}/src/**.h",
@@ -70,6 +74,53 @@ project "Engine"
 			"GLFW_INCLUDE_NONE"
 		}
 
+	filter "configurations:Debug"
+		defines "GE_DEBUG"
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		defines "GE_RELEASE"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		defines "GE_DIST"
+		runtime "Release"
+		optimize "on"
+
+project "Sandbox"
+	location "Sandbox"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp",
+	}
+
+	includedirs
+	{
+		"Engine/vendor/spdlog/include",
+		"Engine/src",
+		"Engine/vendor",
+		"%{IncludeDir.glm}"
+	}
+
+	links
+	{
+		"Engine"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+		
 	filter "configurations:Debug"
 		defines "GE_DEBUG"
 		runtime "Debug"
