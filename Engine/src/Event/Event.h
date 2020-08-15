@@ -9,7 +9,7 @@ namespace Engine {
 		None = 0,
 		WindowClose, WindowResize, WindowFocus, WindowBlur,
 		//AppTick, AppUpdate, AppRender,
-		//KeyPressed, KeyReleased, KeyTyped,
+		KeyPress, KeyRelease, KeyTyped,
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
 

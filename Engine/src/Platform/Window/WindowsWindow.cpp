@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Event\ApplicationEvent.h"
 #include "Event\MouseEvent.h"
+#include "Event\KeyEvent.h"
 #include "WindowsWindow.h"
 
 namespace Engine {
@@ -206,6 +207,36 @@ namespace Engine {
 		});
 		// End mouse events
 
+		// Key events
+		glfwSetKeyCallback(m_GLFWwindow, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			GE_ASSERT(&data, "Data object was not set correctly");
 
+			GE_ASSERT(key >= 0, "Got unknown key {0}, scancode: {1}", key, scancode)
+
+			if (action == GLFW_PRESS) {
+				KeyPressEvent event((uint32_t)key, false);
+				data.EventCallback(event);
+			}
+			else if (action == GLFW_RELEASE) {
+				KeyReleaseEvent event((uint32_t)key);
+				data.EventCallback(event);
+			}
+			else {
+				GE_ASSERT(action == GLFW_REPEAT, "Non implemented action given")
+
+				KeyPressEvent eventb((uint32_t)key, true);
+				data.EventCallback(eventb);
+			}
+		});
+
+		glfwSetCharCallback(m_GLFWwindow, [](GLFWwindow* window, unsigned int keycode) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			GE_ASSERT(&data, "Data object was not set correctly");
+
+			KeyTypeEvent event((uint32_t)keycode);
+			data.EventCallback(event);
+		});
+		// End key events
 	}
 }

@@ -11,7 +11,7 @@ namespace Engine {
 		inline int GetMouseButton() const { return m_Button; };
 
 		EVENT_CLASS_TYPE(MouseButtonPressed)
-		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryMouseButton)
+		EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse | EventCategoryMouseButton)
 	private:
 		int m_Button;
 	};
@@ -24,7 +24,7 @@ namespace Engine {
 		inline int GetMouseButton() const { return m_Button; };
 
 		EVENT_CLASS_TYPE(MouseButtonReleased)
-		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryMouseButton)
+		EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse | EventCategoryMouseButton)
 	private:
 		int m_Button;
 	};
@@ -37,7 +37,7 @@ namespace Engine {
 		inline const Math::Vec2 GetPosition() const { return m_Position; };
 
 		EVENT_CLASS_TYPE(MouseMoved)
-		EVENT_CLASS_CATEGORY(EventCategoryMouse)
+		EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse)
 	
 	private:
 		Math::Vec2 m_Position;
@@ -51,7 +51,7 @@ namespace Engine {
 		inline const Math::Vec2 GetScrollOffset() const { return m_ScrollOffset; };
 
 		EVENT_CLASS_TYPE(MouseScrolled)
-		EVENT_CLASS_CATEGORY(EventCategoryMouse)
+		EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse)
 	private:
 		Math::Vec2 m_ScrollOffset;
 	};
