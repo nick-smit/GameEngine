@@ -95,6 +95,41 @@ namespace Engine {
 		}
 	}
 
+	const bool WindowsWindow::IsMouseButtonPressed(uint32_t mouseButtonCode) const
+	{
+		int glfwButton;
+		switch (mouseButtonCode) {
+		case GE_MOUSE_BUTTON_LEFT:
+			glfwButton = GLFW_MOUSE_BUTTON_LEFT;
+			break;
+		case GE_MOUSE_BUTTON_RIGHT:
+			glfwButton = GLFW_MOUSE_BUTTON_RIGHT;
+			break;
+		case GE_MOUSE_BUTTON_MIDDLE:
+			glfwButton = GLFW_MOUSE_BUTTON_MIDDLE;
+			break;
+		case GE_MOUSE_BUTTON_4:
+			glfwButton = GLFW_MOUSE_BUTTON_4;
+			break;
+		case GE_MOUSE_BUTTON_5:
+			glfwButton = GLFW_MOUSE_BUTTON_5;
+			break;
+		case GE_MOUSE_BUTTON_6:
+			glfwButton = GLFW_MOUSE_BUTTON_6;
+			break;
+		case GE_MOUSE_BUTTON_7:
+			glfwButton = GLFW_MOUSE_BUTTON_7;
+			break;
+		case GE_MOUSE_BUTTON_8:
+			glfwButton = GLFW_MOUSE_BUTTON_8;
+			break;
+		default:
+			GE_ASSERT(false, "Unknown mouse button {0}", mouseButtonCode)
+		}
+
+		return glfwGetMouseButton(m_GLFWwindow, glfwButton) == GLFW_PRESS;
+	}
+
 	const Math::Vec2 WindowsWindow::GetCursorPos() const
 	{
 		double x, y;
@@ -109,6 +144,11 @@ namespace Engine {
 		}
 
 		return { x, y };
+	}
+
+	const bool WindowsWindow::IsKeyPressed(uint32_t keyCode) const
+	{
+		return glfwGetKey(m_GLFWwindow, (int)keyCode) == GLFW_PRESS;
 	}
 
 	void WindowsWindow::BindEvents()

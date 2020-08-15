@@ -2,6 +2,8 @@
 
 #include "Core\Application.h"
 #include "Core\Layer.h"
+#include "Core\Memory.h"
+#include "Core\Input.h"
 
 class MyLayer : public Engine::Layer {
 public:
@@ -16,10 +18,13 @@ public:
 	}
 
 	virtual void OnUpdate() override {
+		if (Engine::Input::IsKeyPressed(GE_KEY_W)) {
+			LOG_INFO("W")
+		}
+		
 	};
 
 	virtual void OnEvent(Engine::Event& event) {
-		LOG_INFO("Layer {0} got event {1}", GetName(), event)
 	};
 };
 

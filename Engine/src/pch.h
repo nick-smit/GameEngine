@@ -14,6 +14,7 @@
 #include "Event/Event.h"
 
 #include "Input/MouseButtonCodes.h"
+#include "Input/KeyCodes.h"
 
 #include "Math/Vector.h"
 

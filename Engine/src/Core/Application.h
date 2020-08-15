@@ -24,6 +24,7 @@ namespace Engine {
 		inline static Application* GetInstance() { return s_Instance; };
 		inline LayerStack* GetLayerStack() const { return m_LayerStack; };
 		inline const std::string GetName() const { return m_Name; };
+		inline Window* GetWindow() { return m_Window.get(); };
 
 	private:
 		static Application* s_Instance;

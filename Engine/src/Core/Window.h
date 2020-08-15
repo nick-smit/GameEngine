@@ -35,6 +35,8 @@ namespace Engine {
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool VSyncEnabled() const = 0;
 
+		virtual const bool IsKeyPressed(uint32_t keyCode) const = 0;
+		virtual const bool IsMouseButtonPressed(uint32_t mouseButtonCode) const = 0;
 		virtual const Math::Vec2 GetCursorPos() const = 0;
 	};
 }

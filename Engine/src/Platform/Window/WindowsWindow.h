@@ -27,7 +27,9 @@ namespace Engine {
 		void SetEventCallback(const std::function<void(Event&)>& callback) override { m_Data.EventCallback = callback; };
 		virtual void SetVSync(bool enabled) override;
 
+		virtual const bool IsMouseButtonPressed(uint32_t mouseButtonCode) const override;
 		virtual const Math::Vec2 GetCursorPos() const override;
+		virtual const bool IsKeyPressed(uint32_t keyCode) const override;
 
 		inline bool VSyncEnabled() const override { return m_Data.VSync; };
 

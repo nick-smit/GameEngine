@@ -2,6 +2,7 @@
 #include "Application.h"
 
 #include "Factory\Window.h"
+#include "Core\Input.h"
 
 namespace Engine {
 	Application* Application::s_Instance = nullptr;
