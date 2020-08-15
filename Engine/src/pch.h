@@ -13,6 +13,8 @@
 
 #include "Event/Event.h"
 
+#include "Input/MouseButtonCodes.h"
+
 #include "Math/Vector.h"
 
 #include "Macro/Assert.h"

@@ -34,6 +34,7 @@ namespace Engine {
 	private: 
 		bool Init(const WindowProps& props);
 		void Shutdown();
+		void BindEvents();
 	private:
 		GLFWwindow* m_GLFWwindow = nullptr;
 

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Event\ApplicationEvent.h"
+#include "Event\MouseEvent.h"
 #include "WindowsWindow.h"
 
 namespace Engine {
@@ -61,36 +62,7 @@ namespace Engine {
 		++windowCount;
 
 		glfwSetWindowUserPointer(m_GLFWwindow, &m_Data);
-
-		glfwSetWindowCloseCallback(m_GLFWwindow, [](GLFWwindow* window) {
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			GE_ASSERT(&data, "Data object was not set correctly");
-
-			WindowCloseEvent event;
-			data.EventCallback(event);
-		});
-
-		glfwSetWindowSizeCallback(m_GLFWwindow, [](GLFWwindow* window, int width, int height) {
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			GE_ASSERT(&data, "Data object was not set correctly");
-
-			WindowResizeEvent event((uint32_t) width, (uint32_t) height);
-			data.EventCallback(event);
-		});
-
-		glfwSetWindowFocusCallback(m_GLFWwindow, [](GLFWwindow* window, int inFocus) {
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			GE_ASSERT(&data, "Data object was not set correctly");
-
-			if (inFocus == GLFW_TRUE) {
-				WindowFocusEvent event;
-				data.EventCallback(event);
-			}
-			else {
-				WindowBlurEvent event;
-				data.EventCallback(event);
-			}
-		});
+		BindEvents();
 
 		// TODO: Move to GraphicsContext
 		/* Make the window's context current */
@@ -136,5 +108,104 @@ namespace Engine {
 		}
 
 		return { x, y };
+	}
+
+	void WindowsWindow::BindEvents()
+	{
+		// Window events
+		glfwSetWindowCloseCallback(m_GLFWwindow, [](GLFWwindow* window) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			GE_ASSERT(&data, "Data object was not set correctly");
+
+			WindowCloseEvent event;
+			data.EventCallback(event);
+		});
+
+		glfwSetWindowSizeCallback(m_GLFWwindow, [](GLFWwindow* window, int width, int height) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			GE_ASSERT(&data, "Data object was not set correctly");
+
+			WindowResizeEvent event((uint32_t)width, (uint32_t)height);
+			data.EventCallback(event);
+		});
+
+		glfwSetWindowFocusCallback(m_GLFWwindow, [](GLFWwindow* window, int inFocus) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			GE_ASSERT(&data, "Data object was not set correctly");
+
+			if (inFocus == GLFW_TRUE) {
+				WindowFocusEvent event;
+				data.EventCallback(event);
+			}
+			else {
+				WindowBlurEvent event;
+				data.EventCallback(event);
+			}
+		});
+		// End window events
+
+		// Mouse events
+		glfwSetMouseButtonCallback(m_GLFWwindow, [](GLFWwindow* window, int button, int action, int mods) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			GE_ASSERT(&data, "Data object was not set correctly");
+
+			int engineButton;
+			switch (button) {
+			case GLFW_MOUSE_BUTTON_LEFT:
+				engineButton = GE_MOUSE_BUTTON_LEFT;
+				break;
+			case GLFW_MOUSE_BUTTON_RIGHT:
+				engineButton = GE_MOUSE_BUTTON_RIGHT;
+				break;
+			case GLFW_MOUSE_BUTTON_MIDDLE:
+				engineButton = GE_MOUSE_BUTTON_MIDDLE;
+				break;
+			case GLFW_MOUSE_BUTTON_4:
+				engineButton = GE_MOUSE_BUTTON_4;
+				break;
+			case GLFW_MOUSE_BUTTON_5:
+				engineButton = GE_MOUSE_BUTTON_5;
+				break;
+			case GLFW_MOUSE_BUTTON_6:
+				engineButton = GE_MOUSE_BUTTON_6;
+				break;
+			case GLFW_MOUSE_BUTTON_7:
+				engineButton = GE_MOUSE_BUTTON_7;
+				break;
+			case GLFW_MOUSE_BUTTON_8:
+				engineButton = GE_MOUSE_BUTTON_8;
+				break;
+			default:
+				GE_ASSERT(false, "Unknown mouse button {0}", button)
+			}
+
+			if (action == GLFW_PRESS) {
+				MouseButtonPressEvent event(engineButton);
+				data.EventCallback(event);
+			}
+			else if (action == GLFW_RELEASE) {
+				MouseButtonReleaseEvent event(engineButton);
+				data.EventCallback(event);
+			}
+		});
+
+		glfwSetCursorPosCallback(m_GLFWwindow, [](GLFWwindow* window, double xPos, double yPos) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			GE_ASSERT(&data, "Data object was not set correctly");
+
+			MouseMoveEvent event({ xPos, yPos });
+			data.EventCallback(event);
+		});
+
+		glfwSetScrollCallback(m_GLFWwindow, [](GLFWwindow* window, double xOffset, double yOffset) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			GE_ASSERT(&data, "Data object was not set correctly");
+
+			MouseScrollEvent event({ xOffset, yOffset });
+			data.EventCallback(event);
+		});
+		// End mouse events
+
+
 	}
 }
