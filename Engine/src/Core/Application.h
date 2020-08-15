@@ -20,8 +20,6 @@ namespace Engine {
 
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
-		bool OnWindowBlur(WindowBlurEvent& e);
-		bool OnWindowFocus(WindowFocusEvent& e);
 
 		inline static Application* GetInstance() { return s_Instance; };
 		inline LayerStack* GetLayerStack() const { return m_LayerStack; };

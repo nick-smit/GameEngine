@@ -44,32 +44,31 @@ namespace Engine {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize));
-		dispatcher.Dispatch<WindowBlurEvent>(BIND_EVENT_FN(Application::OnWindowBlur));
-		dispatcher.Dispatch<WindowFocusEvent>(BIND_EVENT_FN(Application::OnWindowFocus));
+
+		GE_ASSERT(!e.IsHandled(), "Application should never handle an event.")
+
+		for (auto it = m_LayerStack->end(); it != m_LayerStack->begin(); ) {
+			(*--it)->OnEvent(e);
+
+			if (e.IsHandled()) 
+				break;
+		}
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_Running = false;
 
-		return true;
+		return false;
 	}
 
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
-		// Todo something
-		return false;
-	}
+		if (e.GetWidth() == 0 && e.GetHeight() == 0) {
+			m_Minimized = true;
+			return false;
+		}
 
-	bool Application::OnWindowBlur(WindowBlurEvent& e)
-	{
-		m_Minimized = true;
-
-		return false;
-	}
-
-	bool Application::OnWindowFocus(WindowFocusEvent& e)
-	{
 		m_Minimized = false;
 
 		return false;

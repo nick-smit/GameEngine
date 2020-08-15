@@ -48,6 +48,8 @@ namespace Engine {
 		void SetHandled(bool handled = true) {
 			m_Handled = true;
 		}
+
+		inline bool IsHandled() const { return m_Handled; };
 	private:
 		bool m_Handled = false;
 	};
