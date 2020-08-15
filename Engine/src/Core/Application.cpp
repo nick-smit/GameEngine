@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Application.h"
 
+#include "Factory\Window.h"
+
 namespace Engine {
 	Application* Application::s_Instance = nullptr;
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "Factory\Window.h"
+#include "Core\Window.h"
 #include "Event\Event.h"
 #include "Event\ApplicationEvent.h"
 #include "Core\LayerStack.h"
