@@ -8,6 +8,7 @@
 #include <utility>
 #include <algorithm>
 
+#include "Core\Application.h"
 #include "Core/Log.h"
 #include "Core/Memory.h"
 

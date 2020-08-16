@@ -9,6 +9,7 @@ namespace Sandbox {
 			LOG_INFO("Application name: {0}", name);
 
 			GetLayerStack()->PushLayer(new WASDLoggerLayer());
+			GetLayerStack()->PushLayer(new Engine::OpenGLLayer());
 		};
 
 		~MyApplication() = default;

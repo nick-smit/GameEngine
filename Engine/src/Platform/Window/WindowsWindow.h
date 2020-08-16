@@ -32,6 +32,8 @@ namespace Engine {
 		virtual const bool IsKeyPressed(uint32_t keyCode) const override;
 
 		inline bool VSyncEnabled() const override { return m_Data.VSync; };
+		inline uint32_t GetWidth() const override { return m_Data.Width; };
+		inline uint32_t GetHeight() const override { return m_Data.Height; };
 
 	private: 
 		bool Init(const WindowProps& props);
