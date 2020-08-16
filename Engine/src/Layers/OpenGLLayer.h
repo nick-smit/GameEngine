@@ -20,6 +20,8 @@ namespace Engine {
 
 	private:
 		double m_Red = 0.3f;
+
+		uint32_t m_ShaderProgram;
 	};
 
 }
