@@ -74,7 +74,7 @@ namespace Engine {
 			}
 		}
 
-		GLuint m_ShaderProgram = glCreateProgram();
+		m_ShaderProgram = glCreateProgram();
 		glAttachShader(m_ShaderProgram, vertexShader);
 		glAttachShader(m_ShaderProgram, fragmentShader);
 		glLinkProgram(m_ShaderProgram);
