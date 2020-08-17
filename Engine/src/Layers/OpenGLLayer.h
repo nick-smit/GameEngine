@@ -3,6 +3,8 @@
 #include "Event\Event.h"
 #include "Event\KeyEvent.h"
 #include "Core\Layer.h"
+#include "Renderer\Shader.h"
+#include "Core\Memory.h"
 
 namespace Engine {
 
@@ -21,7 +23,7 @@ namespace Engine {
 	private:
 		double m_Red = 0.3f;
 
-		uint32_t m_ShaderProgram;
+		Ref<Shader> m_ShaderProgram = nullptr;
 	};
 
 }
