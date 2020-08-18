@@ -16,7 +16,7 @@ namespace Engine {
 
 	class ShaderFactory {
 	public:
-		static Ref<Shader> FromFile(const std::string& filename);
+		static Ref<Shader> FromFile(const std::string& vertexShaderFile, const std::string& fragmentShaderFile);
 		static Ref<Shader> FromSource(const std::string& vertexShader, const std::string& fragmentShader);
 	};
 

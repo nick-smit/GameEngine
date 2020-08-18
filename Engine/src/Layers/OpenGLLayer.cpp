@@ -32,28 +32,7 @@ namespace Engine {
 
 	void OpenGLLayer::OnAttach()
 	{
-		const char* vertexShaderSource = "#version 330 core\n"
-			"\n"
-			"layout (location = 0) in vec3 in_position;\n"
-			"layout (location = 1) in vec4 in_color;\n"
-			"\n"
-			"out vec4 vertexColor;"
-			"\n"
-			"void main() {\n"
-			"gl_Position = vec4(in_position.x, in_position.y, in_position.z, 1.0);\n"
-			"vertexColor = in_color;\n"
-			"}";
-		
-
-		const char* fragmentShaderSource = "#version 330 core\n"
-			"in vec4 vertexColor;\n"
-			"out vec4 color;\n"
-			"\n"
-			"void main() {\n"
-			"color = vertexColor;\n"
-			"}";
-
-		m_ShaderProgram = ShaderFactory::FromSource(vertexShaderSource, fragmentShaderSource);
+		m_ShaderProgram = ShaderFactory::FromFile("assets/shaders/basic.vertex", "assets/shaders/basic.fragment");
 	}
 
 	void OpenGLLayer::OnDetach()
@@ -69,12 +48,12 @@ namespace Engine {
 			0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, // top right
 			0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // bottom right
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, // bottom left
-			-0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top left
+			-0.5f, 0.5f, 0.0f, 0.4f, 0.3f, 0.2f, 1.0f, // top left
 		};
 
 		GLuint indices[] = {
 			0, 1, 3,
-			//1, 2, 3
+			1, 2, 3
 		};
 
 		GLuint elementBuffer;
@@ -104,7 +83,7 @@ namespace Engine {
 		//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
-		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
 
