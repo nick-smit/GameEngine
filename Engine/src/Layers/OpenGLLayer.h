@@ -18,8 +18,6 @@ namespace Engine {
 
 		void OnUpdate() override;
 		void OnEvent(Event& e) override;
-		bool KeyPress(KeyPressEvent& e);
-
 	private:
 		double m_Red = 0.3f;
 

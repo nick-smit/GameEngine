@@ -6,6 +6,10 @@
 #include <GLFW/glfw3.h>
 #include <glad\glad.h>
 
+#include "Renderer\ElementBuffer.h"
+#include "Renderer\IndexBuffer.h"
+#include "Renderer\VertexBuffer.h"
+
 namespace Engine {
 	
 	OpenGLLayer::OpenGLLayer() : Layer("OpenGLLayer")
@@ -18,7 +22,6 @@ namespace Engine {
 		GLint nrAttributes;
 		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
 		LOG_CORE_DEBUG("Max vertex attributes: {0}", nrAttributes)
-
 
 		int width = (int)Application::GetInstance()->GetWindow()->GetWidth();
 		int height = (int)Application::GetInstance()->GetWindow()->GetHeight();
@@ -41,70 +44,41 @@ namespace Engine {
 
 	void OpenGLLayer::OnUpdate()
 	{
-		glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.3f, 0.5f, 0.7f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		GLfloat vertices[] = {
-			-0.5f, -0.25f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-			0.5f, -0.25f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-			0.0f, 0.5f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+		auto elementBuffer = ElementBufferFactory::Create();
+
+		float quadVertices[] = {
+			-0.5f, -0.5f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+			 0.5f, -0.5f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+			 0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+		};
+		auto vertexBufferQuad = VertexBufferFactory::Create(quadVertices, sizeof(quadVertices));
+		vertexBufferQuad->SetBufferLayout({
+			{ ShaderDataType::Float3, "position" },
+			{ ShaderDataType::Float4, "color" }
+		});
+
+		elementBuffer->AddVertexBuffer(vertexBufferQuad);
+
+		uint32_t quadIndices[] = {
+			0, 1, 3,
+				1, 2, 3,
 		};
 
-		GLuint indices[] = {
-			0, 1, 2,
-		};
-
-		GLuint elementBuffer;
-		glGenBuffers(1, &elementBuffer);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-		GLuint vertexBuffer;
-		glGenBuffers(1, &vertexBuffer);
-
-		GLuint vertexArray;
-		glGenVertexArrays(1, &vertexArray);
-
-		glBindVertexArray(vertexArray);
-
-		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (GLvoid*)0);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (GLvoid*)(3*sizeof(GLfloat)));
-		glEnableVertexAttribArray(1);
+		auto indexBuffer = IndexBufferFactory::Create(quadIndices, 6);
+		elementBuffer->SetIndexBuffer(indexBuffer);
 
 		m_ShaderProgram->Bind();
-
-		//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
-		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
+		elementBuffer->Bind();
+		glDrawElements(GL_TRIANGLES, elementBuffer->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, 0);
+		elementBuffer->Unbind();
 	}
 
 	void OpenGLLayer::OnEvent(Event& e)
 	{
-		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<KeyPressEvent>(BIND_EVENT_FN(OpenGLLayer::KeyPress));
-	}
-
-	bool OpenGLLayer::KeyPress(KeyPressEvent& e)
-	{
-		if (e.GetKeyCode() == GE_KEY_UP) {
-			if (m_Red < 1.0f) {
-				m_Red += 0.01f;
-			}
-		}
-		else if (e.GetKeyCode() == GE_KEY_DOWN) {
-			if (m_Red > 0.0f) {
-				m_Red -= 0.01f;
-			}
-		}
-
-		return false;
 	}
 
 }
