@@ -51,7 +51,6 @@ namespace Engine {
 			glfwSetErrorCallback(GLFWErrorCallback);
 		}
 
-		// TODO move?
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -73,8 +72,6 @@ namespace Engine {
 		glfwSetWindowUserPointer(m_GLFWwindow, &m_Data);
 		BindEvents();
 
-		// TODO: Move to GraphicsContext
-		/* Make the window's context current */
 		glfwMakeContextCurrent(m_GLFWwindow);
 
 		SetVSync(props.VSync);
