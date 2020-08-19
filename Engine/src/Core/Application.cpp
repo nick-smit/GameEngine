@@ -3,6 +3,7 @@
 
 #include "Factory\Window.h"
 #include "Core\Input.h"
+#include "Renderer\RenderCommand.h"
 
 namespace Engine {
 	Application* Application::s_Instance = nullptr;
@@ -18,6 +19,9 @@ namespace Engine {
 		WindowProps windowProps;
 		m_Window = WindowFactory::Create(windowProps);
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+		
+		RenderCommand::Init();
+		RenderCommand::SetViewport(0, 0, windowProps.Width, windowProps.Height);
 
 		m_LayerStack = new LayerStack();
 	}
@@ -34,10 +38,10 @@ namespace Engine {
 		while (m_Running) {
 			m_Window->OnUpdate();
 
-			if (m_Minimized) continue;
-
-			for (Layer* layer : *m_LayerStack) {
-				layer->OnUpdate();
+			if (!m_Minimized) {
+				for (Layer* layer : *m_LayerStack) {
+					layer->OnUpdate();
+				}
 			}
 		}
 	}
@@ -72,6 +76,7 @@ namespace Engine {
 			return false;
 		}
 
+		RenderCommand::SetViewport(0, 0, e.GetWidth(), e.GetHeight());
 		m_Minimized = false;
 
 		return false;
