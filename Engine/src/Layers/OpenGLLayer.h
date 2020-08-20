@@ -22,6 +22,9 @@ namespace Engine {
 		double m_Red = 0.3f;
 
 		Ref<Shader> m_ShaderProgram = nullptr;
+		uint32_t m_Texture1 = 0;
+		uint32_t m_Texture2 = 0;
+		uint32_t m_Texture3 = 0;
 	};
 
 }

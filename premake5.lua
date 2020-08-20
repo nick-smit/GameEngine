@@ -22,6 +22,7 @@ IncludeDir["spdlog"] = "Engine/vendor/spdlog/include";
 IncludeDir["glfw"]   = "Engine/vendor/glfw/include";
 IncludeDir["glad"]   = "Engine/vendor/glad/include";
 IncludeDir["glm"]    = "Engine/vendor/glm";
+IncludeDir["stb"]    = "Engine/vendor/stb";
 
 
 group "Dependencies"
@@ -44,7 +45,8 @@ project "Engine"
 	pchsource "Engine/src/pch.cpp"
 
 	defines {
-		"_CRT_SECURE_NO_WARNINGS"
+		"_CRT_SECURE_NO_WARNINGS",
+		"STB_IMAGE_IMPLEMENTATION",
 	}
 
 	files {
@@ -60,6 +62,7 @@ project "Engine"
 		"%{IncludeDir.glfw}",
 		"%{IncludeDir.glad}",
 		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb}",
 	}
 
 	links {
