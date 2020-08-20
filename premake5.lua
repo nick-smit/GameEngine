@@ -46,7 +46,6 @@ project "Engine"
 
 	defines {
 		"_CRT_SECURE_NO_WARNINGS",
-		"STB_IMAGE_IMPLEMENTATION",
 	}
 
 	files {

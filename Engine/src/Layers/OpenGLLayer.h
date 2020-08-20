@@ -4,6 +4,7 @@
 #include "Event\KeyEvent.h"
 #include "Core\Layer.h"
 #include "Renderer\Shader.h"
+#include "Renderer\Texture2D.h"
 #include "Core\Memory.h"
 
 namespace Engine {
@@ -22,9 +23,8 @@ namespace Engine {
 		double m_Red = 0.3f;
 
 		Ref<Shader> m_ShaderProgram = nullptr;
-		uint32_t m_Texture1 = 0;
-		uint32_t m_Texture2 = 0;
-		uint32_t m_Texture3 = 0;
+		Ref<Texture2D> m_ContainerTexture = nullptr;
+		Ref<Texture2D> m_SmileTexture = nullptr;
 	};
 
 }
