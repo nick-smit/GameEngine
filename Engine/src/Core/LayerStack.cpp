@@ -20,7 +20,7 @@ namespace Engine {
 	{
 		auto it = std::find(m_Layers.begin(), m_Layers.end(), layer);
 
-		GE_ASSERT(it == m_Layers.end(), "Layer was not found")
+		GE_CORE_ASSERT(it == m_Layers.end(), "Layer was not found")
 		if (it != m_Layers.end()) {
 			layer->OnDetach();
 			m_Layers.erase(it);

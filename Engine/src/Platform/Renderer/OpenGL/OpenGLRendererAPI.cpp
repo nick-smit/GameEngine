@@ -29,7 +29,7 @@ namespace Engine {
 	void OpenGLRendererAPI::Init()
 	{
 		int success = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		GE_ASSERT(success, "Failed tot initialize GLAD")
+		GE_CORE_ASSERT(success, "Failed tot initialize GLAD")
 
 		LOG_CORE_INFO("Loaded OpenGL version {0}.{1}", GLVersion.major, GLVersion.minor)
 

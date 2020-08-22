@@ -129,7 +129,7 @@ namespace Engine {
 			glfwButton = GLFW_MOUSE_BUTTON_8;
 			break;
 		default:
-			GE_ASSERT(false, "Unknown mouse button {0}", mouseButtonCode)
+			GE_CORE_ASSERT(false, "Unknown mouse button {0}", mouseButtonCode)
 		}
 
 		return glfwGetMouseButton(m_GLFWwindow, glfwButton) == GLFW_PRESS;
@@ -161,7 +161,7 @@ namespace Engine {
 		// Window events
 		glfwSetWindowCloseCallback(m_GLFWwindow, [](GLFWwindow* window) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			GE_ASSERT(&data, "Data object was not set correctly");
+			GE_CORE_ASSERT(&data, "Data object was not set correctly");
 
 			WindowCloseEvent event;
 			data.EventCallback(event);
@@ -169,7 +169,7 @@ namespace Engine {
 
 		glfwSetWindowSizeCallback(m_GLFWwindow, [](GLFWwindow* window, int width, int height) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			GE_ASSERT(&data, "Data object was not set correctly");
+			GE_CORE_ASSERT(&data, "Data object was not set correctly");
 
 			WindowResizeEvent event((uint32_t)width, (uint32_t)height);
 			data.EventCallback(event);
@@ -177,7 +177,7 @@ namespace Engine {
 
 		glfwSetWindowFocusCallback(m_GLFWwindow, [](GLFWwindow* window, int inFocus) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			GE_ASSERT(&data, "Data object was not set correctly");
+			GE_CORE_ASSERT(&data, "Data object was not set correctly");
 
 			if (inFocus == GLFW_TRUE) {
 				WindowFocusEvent event;
@@ -193,7 +193,7 @@ namespace Engine {
 		// Mouse events
 		glfwSetMouseButtonCallback(m_GLFWwindow, [](GLFWwindow* window, int button, int action, int mods) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			GE_ASSERT(&data, "Data object was not set correctly");
+			GE_CORE_ASSERT(&data, "Data object was not set correctly");
 
 			int engineButton;
 			switch (button) {
@@ -222,7 +222,7 @@ namespace Engine {
 				engineButton = GE_MOUSE_BUTTON_8;
 				break;
 			default:
-				GE_ASSERT(false, "Unknown mouse button {0}", button)
+				GE_CORE_ASSERT(false, "Unknown mouse button {0}", button)
 			}
 
 			if (action == GLFW_PRESS) {
@@ -237,7 +237,7 @@ namespace Engine {
 
 		glfwSetCursorPosCallback(m_GLFWwindow, [](GLFWwindow* window, double xPos, double yPos) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			GE_ASSERT(&data, "Data object was not set correctly");
+			GE_CORE_ASSERT(&data, "Data object was not set correctly");
 
 			MouseMoveEvent event({ xPos, yPos });
 			data.EventCallback(event);
@@ -245,7 +245,7 @@ namespace Engine {
 
 		glfwSetScrollCallback(m_GLFWwindow, [](GLFWwindow* window, double xOffset, double yOffset) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			GE_ASSERT(&data, "Data object was not set correctly");
+			GE_CORE_ASSERT(&data, "Data object was not set correctly");
 
 			MouseScrollEvent event({ xOffset, yOffset });
 			data.EventCallback(event);
@@ -255,9 +255,9 @@ namespace Engine {
 		// Key events
 		glfwSetKeyCallback(m_GLFWwindow, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			GE_ASSERT(&data, "Data object was not set correctly");
+			GE_CORE_ASSERT(&data, "Data object was not set correctly");
 
-			GE_ASSERT(key >= 0, "Got unknown key {0}, scancode: {1}", key, scancode)
+			GE_CORE_ASSERT(key >= 0, "Got unknown key {0}, scancode: {1}", key, scancode)
 
 			if (action == GLFW_PRESS) {
 				KeyPressEvent event((uint32_t)key, false);
@@ -268,7 +268,7 @@ namespace Engine {
 				data.EventCallback(event);
 			}
 			else {
-				GE_ASSERT(action == GLFW_REPEAT, "Non implemented action given")
+				GE_CORE_ASSERT(action == GLFW_REPEAT, "Non implemented action given")
 
 				KeyPressEvent eventb((uint32_t)key, true);
 				data.EventCallback(eventb);
@@ -277,7 +277,7 @@ namespace Engine {
 
 		glfwSetCharCallback(m_GLFWwindow, [](GLFWwindow* window, unsigned int keycode) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			GE_ASSERT(&data, "Data object was not set correctly");
+			GE_CORE_ASSERT(&data, "Data object was not set correctly");
 
 			KeyTypeEvent event((uint32_t)keycode);
 			data.EventCallback(event);

@@ -22,7 +22,7 @@ namespace Engine {
 				LOG_CORE_ERROR(info)
 			}
 
-			GE_ASSERT(success, "Failed to link program");
+			GE_CORE_ASSERT(success, "Failed to link program");
 		}
 
 		glDeleteShader(vertexShaderId);
@@ -62,7 +62,7 @@ namespace Engine {
 				LOG_CORE_ERROR(info)
 			}
 
-			GE_ASSERT(success, "Failed to compile shader");
+			GE_CORE_ASSERT(success, "Failed to compile shader");
 		}
 
 		return shaderId;

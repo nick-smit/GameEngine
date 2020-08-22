@@ -52,7 +52,7 @@ namespace Engine {
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize));
 
-		GE_ASSERT(!e.IsHandled(), "Application should never handle an event.")
+		GE_CORE_ASSERT(!e.IsHandled(), "Application should never handle an event.")
 
 		for (auto it = m_LayerStack->end(); it != m_LayerStack->begin(); ) {
 			(*--it)->OnEvent(e);
