@@ -17,6 +17,7 @@ namespace Engine {
 		virtual void SetInt2(const std::string& name, int32_t v1, int32_t v2) = 0;
 		virtual void SetInt3(const std::string& name, int32_t v1, int32_t v2, int32_t v3) = 0;
 		virtual void SetInt4(const std::string& name, int32_t v1, int32_t v2, int32_t v3, int32_t v4) = 0;
+		virtual void SetIntArray(const std::string& name, int32_t* data, uint32_t count) = 0;
 
 		virtual void SetUint1(const std::string& name, int32_t v1) = 0;
 		virtual void SetUint2(const std::string& name, int32_t v1, int32_t v2) = 0;

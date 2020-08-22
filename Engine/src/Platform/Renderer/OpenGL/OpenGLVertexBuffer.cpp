@@ -4,6 +4,10 @@
 #include <glad\glad.h>
 
 namespace Engine {
+	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
+	{
+		glGenBuffers(1, &m_VertexBufferId);
+	}
 
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
 	{
@@ -25,6 +29,12 @@ namespace Engine {
 	void OpenGLVertexBuffer::Unbind() const
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	void OpenGLVertexBuffer::SetData(const void* data, uint32_t size) const
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferId);
+		glBufferSubData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}
 
 }

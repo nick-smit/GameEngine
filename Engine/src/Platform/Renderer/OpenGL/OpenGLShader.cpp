@@ -108,6 +108,14 @@ namespace Engine {
 		glUniform4i(loc, v1, v2, v3, v4);
 	}
 
+	void OpenGLShader::SetIntArray(const std::string& name, int32_t* data, uint32_t count)
+	{
+		Bind();
+		int32_t loc = GetUniformLocation(name);
+
+		glUniform1iv(loc, count, data);
+	}
+
 	void OpenGLShader::SetUint1(const std::string& name, int32_t v1)
 	{
 		Bind();

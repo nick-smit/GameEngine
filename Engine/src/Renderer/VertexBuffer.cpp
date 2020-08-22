@@ -5,6 +5,11 @@
 
 namespace Engine {
 
+	Ref<VertexBuffer> VertexBufferFactory::Create(uint32_t size)
+	{
+		return CreateRef<OpenGLVertexBuffer>(size);
+	}
+
 	Ref<VertexBuffer> VertexBufferFactory::Create(float* vertices, uint32_t size)
 	{
 		return CreateRef<OpenGLVertexBuffer>(vertices, size);

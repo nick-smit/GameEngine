@@ -18,6 +18,7 @@ namespace Engine {
 		virtual void SetInt2(const std::string& name, int32_t v1, int32_t v2) override;
 		virtual void SetInt3(const std::string& name, int32_t v1, int32_t v2, int32_t v3) override;
 		virtual void SetInt4(const std::string& name, int32_t v1, int32_t v2, int32_t v3, int32_t v4) override;
+		virtual void SetIntArray(const std::string& name, int32_t* data, uint32_t count) override;
 
 		virtual void SetUint1(const std::string& name, int32_t v1) override;
 		virtual void SetUint2(const std::string& name, int32_t v1, int32_t v2) override;
