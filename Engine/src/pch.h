@@ -17,7 +17,7 @@
 #include "Input/MouseButtonCodes.h"
 #include "Input/KeyCodes.h"
 
-#include "Math/Vector.h"
+#include "Core\Math.h"
 
 #include "Macro/Assert.h"
 #include "Macro/Bit.h"

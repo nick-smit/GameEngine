@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Core\Window.h"
-#include "Math\Vector.h"
+#include "Core\Math.h"
 
 namespace Engine {
 
