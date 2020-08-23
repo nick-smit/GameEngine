@@ -3,10 +3,7 @@
 
 #include "Event\KeyEvent.h"
 
-#include "Renderer\RenderCommand.h"
-#include "Renderer\ElementBuffer.h"
-#include "Renderer\IndexBuffer.h"
-#include "Renderer\VertexBuffer.h"
+#include "Renderer\Renderer2D.h"
 
 #include <glad\glad.h>
 
@@ -22,13 +19,7 @@ namespace Engine {
 
 	void OpenGLLayer::OnAttach()
 	{
-		m_ShaderProgram = ShaderFactory::FromFile("assets/shaders/basic.vertex", "assets/shaders/basic.fragment");
-
-		m_ContainerTexture = Texture2D::FromFile("assets/textures/container.jpg");
-		m_SmileTexture = Texture2D::FromFile("assets/textures/awesomeface.png");
-
-		m_ShaderProgram->SetInt1("texture1", 0);
-		m_ShaderProgram->SetInt1("texture2", 1);
+		Renderer2D::Init();
 	}
 
 	void OpenGLLayer::OnDetach()
@@ -37,42 +28,9 @@ namespace Engine {
 
 	void OpenGLLayer::OnUpdate()
 	{
-		RenderCommand::SetClearColor({ 0.3f, 0.5f, 0.7f, 1.0f });
-		RenderCommand::Clear();
-
-		auto elementBuffer = ElementBufferFactory::Create();
-
-		float quadVertices[] = {
-			// Position         // Color                // Texture coords
-			 0.5f,  0.5f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, // Top right
-			 0.5f, -0.5f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Top left
-			-0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, // Bottom left
-			-0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // Bottom right
-		};
-
-		auto vertexBufferQuad = VertexBufferFactory::Create(quadVertices, sizeof(quadVertices));
-		vertexBufferQuad->SetBufferLayout({
-			{ ShaderDataType::Float3, "position" },
-			{ ShaderDataType::Float4, "color" },
-			{ ShaderDataType::Float2, "texCoords" },
-		});
-
-		elementBuffer->AddVertexBuffer(vertexBufferQuad);
-
-		uint32_t quadIndices[] = {
-			0, 1, 3,
-				1, 2, 3,
-		};
-
-		auto indexBuffer = IndexBufferFactory::Create(quadIndices, 6);
-		elementBuffer->SetIndexBuffer(indexBuffer);
-
-		m_ContainerTexture->Bind(0);
-		m_SmileTexture->Bind(1);
-
-		m_ShaderProgram->Bind();
-		
-		RenderCommand::DrawIndexed(elementBuffer);
+		Renderer2D::BeginScene();
+		Renderer2D::DrawQuad({0.0f, 0.25f, 0.0f}, Math::Vec4(1, 0, 0, 1));
+		Renderer2D::DrawQuad({0.250f, 0.0f, 0.0f}, Math::Vec4(0, 1, 0, 1));
 	}
 
 	void OpenGLLayer::OnEvent(Event& e)
